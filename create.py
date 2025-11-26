@@ -6,8 +6,25 @@ import mysql.connector
 from mysql.connector import Error
 from conexion import crear_conexion, cerrar_conexion
 
-def insertar_obra(titulo, autor, fecha_creacion, tipo_obra, precio_estimado):
-    """Inserta una nueva obra en la base de datos"""
+def insertar_empleado(nombre_completo, documento_identidad, cargo, telefono, email, 
+                      fecha_contratacion, horario_entrada, horario_salida, salario):
+    """
+    Inserta un nuevo empleado en la base de datos
+    
+    Args:
+        nombre_completo: Nombre completo del empleado
+        documento_identidad: Documento de identidad único
+        cargo: Cargo del empleado (guia, administrador, cajero, seguridad, mantenimiento, gerente, atencion_cliente)
+        telefono: Teléfono de contacto
+        email: Correo electrónico
+        fecha_contratacion: Fecha de contratación (formato: YYYY-MM-DD)
+        horario_entrada: Hora de entrada (formato: HH:MM:SS)
+        horario_salida: Hora de salida (formato: HH:MM:SS)
+        salario: Salario del empleado
+    
+    Returns:
+        int: ID del empleado insertado, None si falla
+    """
     conexion = crear_conexion()
     if not conexion:
         return None
@@ -16,59 +33,35 @@ def insertar_obra(titulo, autor, fecha_creacion, tipo_obra, precio_estimado):
         cursor = conexion.cursor()
         
         sql = """
-        INSERT INTO obras (titulo, autor, fecha_creacion, tipo_obra, precio_estimado)
-        VALUES (%s, %s, %s, %s, %s)
+        INSERT INTO empleados 
+        (nombre_completo, documento_identidad, cargo, telefono, email, 
+         fecha_contratacion, horario_entrada, horario_salida, salario, estado)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, 'activo')
         """
         
-        valores = (titulo, autor, fecha_creacion, tipo_obra, precio_estimado)
+        valores = (nombre_completo, documento_identidad, cargo, telefono, email, 
+                  fecha_contratacion, horario_entrada, horario_salida, salario)
         
         cursor.execute(sql, valores)
         conexion.commit()
         
-        obra_id = cursor.lastrowid
-        print(f"✓ Obra insertada correctamente con ID: {obra_id}")
+        empleado_id = cursor.lastrowid
+        print(f"✓ Empleado insertado correctamente con ID: {empleado_id}")
+        print(f"  Nombre: {nombre_completo}")
+        print(f"  Cargo: {cargo}")
+        print(f"  Documento: {documento_identidad}")
         
         cursor.close()
-        return obra_id
+        return empleado_id
         
+    except mysql.connector.IntegrityError as e:
+        print(f"✗ Error de integridad: {e}")
+        print("  El documento de identidad ya existe en el sistema")
+        return None
     except Error as e:
-        print(f"✗ Error al insertar obra: {e}")
+        print(f"✗ Error al insertar empleado: {e}")
         conexion.rollback()
         return None
         
-    finally:
-        cerrar_conexion(conexion)
-
-def insertar_visitante(nombre, apellido, email, telefono, fecha_registro):
-    """Inserta un nuevo visitante en la base de datos"""
-    conexion = crear_conexion()
-    if not conexion:
-        return None
-    
-    try:
-        cursor = conexion.cursor()
-        
-        sql = """
-        INSERT INTO visitantes (nombre, apellido, email, telefono, fecha_registro)
-        VALUES (%s, %s, %s, %s, %s)
-        """
-        
-        valores = (nombre, apellido, email, telefono, fecha_registro)
-        
-        cursor.execute(sql, valores)
-        conexion.commit()
-        
-        visitante_id = cursor.lastrowid
-        print(f"✓ Visitante insertado con ID: {visitante_id}")
-        
-        cursor.close()
-        return visitante_id
-        
-    except mysql.connector.IntegrityError as e:
-        print(f"✗ Error de integridad (posible email duplicado): {e}")
-        return None
-    except Error as e:
-        print(f"✗ Error al insertar visitante: {e}")
-        return None
     finally:
         cerrar_conexion(conexion)

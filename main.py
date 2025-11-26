@@ -1,151 +1,166 @@
 """
 Aplicación CRUD para Base de Datos de Museo
 Archivo Principal con Menú Interactivo
+
+Estudiantes: [TU NOMBRE] y [NOMBRE DEL COMPAÑERO]
+Asignatura: Bases de Datos - 2025
 """
 
 from datetime import datetime
-from create import insertar_obra, insertar_visitante
+from create import insertar_empleado
 from read import (
-    consulta_1_todas_obras,
-    consulta_2_obras_por_autor,
-    consulta_3_obras_rango_precio,
-    consulta_4_estadisticas_obras,
-    consulta_5_obras_por_tipo,
-    consulta_6_visitantes_recientes
+    consulta_1_exhibiciones_activas,
+    consulta_2_guias_museo,
+    consulta_3_productos_tienda,
+    consulta_4_empleados_museo,
+    consulta_5_estadisticas_empleados,
+    consulta_6_entradas_vendidas_mes
 )
-from update import (
-    actualizar_precio_obra,
-    actualizar_datos_visitante,
-    actualizar_tipo_obra
-)
-from delete import (
-    eliminar_obra,
-    eliminar_visitante
-)
+from delete import eliminar_empleado
 
 def mostrar_menu():
     """Muestra el menú principal"""
-    print("\n" + "="*50)
-    print("   SISTEMA DE GESTIÓN DE MUSEO")
-    print("="*50)
-    print("\n--- OPERACIONES CREATE (INSERT) ---")
-    print("1. Insertar nueva obra")
-    print("2. Registrar visitante")
-    print("\n--- OPERACIONES READ (SELECT) ---")
-    print("3. Ver todas las obras")
-    print("4. Buscar obras por autor")
-    print("5. Obras por rango de precio")
-    print("6. Ver estadísticas del museo")
-    print("7. Obras agrupadas por tipo")
-    print("8. Ver visitantes recientes")
-    print("\n--- OPERACIONES UPDATE ---")
-    print("9. Actualizar precio de obra")
-    print("10. Actualizar datos de visitante")
-    print("11. Actualizar tipo de obra")
-    print("\n--- OPERACIONES DELETE ---")
-    print("12. Eliminar obra")
-    print("13. Eliminar visitante")
+    print("\n" + "="*70)
+    print("         SISTEMA DE GESTIÓN DE MUSEO - museo_2025")
+    print("="*70)
+    print("\n--- CONSULTAS (SELECT) ---")
+    print("1. Listar exhibiciones activas con ubicación y fecha")
+    print("2. Listar guías del museo con su especialidad")
+    print("3. Listar productos disponibles en tienda")
+    print("4. Listar empleados del museo con su cargo")
+    print("5. Ver estadísticas de empleados por cargo")
+    print("6. Ver estadísticas de entradas vendidas (mes actual)")
+    print("\n--- INSERCIÓN (INSERT) ---")
+    print("7. Insertar nuevo empleado")
+    print("\n--- ELIMINACIÓN (DELETE) ---")
+    print("8. Eliminar empleado")
     print("\n0. Salir")
-    print("="*50)
+    print("="*70)
 
 def ejecutar_aplicacion():
-    """Función principal"""
+    """Función principal del sistema"""
     
-    print("\n¡Bienvenido al Sistema de Gestión de Museo!")
+    print("\n" + "="*70)
+    print("   ¡Bienvenido al Sistema de Gestión de Museo!")
+    print("   Base de Datos: museo_2025")
+    print("="*70)
     
     while True:
         mostrar_menu()
         
         try:
-            opcion = input("\nSeleccione una opción: ").strip()
+            opcion = input("\n👉 Seleccione una opción: ").strip()
             
+            # === CONSULTAS SELECT ===
             if opcion == "1":
-                print("\n--- INSERTAR NUEVA OBRA ---")
-                titulo = input("Título: ")
-                autor = input("Autor: ")
-                fecha = input("Año de creación: ")
-                tipo = input("Tipo (pintura/escultura/fotografía): ")
-                precio = float(input("Precio estimado: "))
-                insertar_obra(titulo, autor, fecha, tipo, precio)
+                consulta_1_exhibiciones_activas()
+                input("\nPresione Enter para continuar...")
                 
             elif opcion == "2":
-                print("\n--- REGISTRAR VISITANTE ---")
-                nombre = input("Nombre: ")
-                apellido = input("Apellido: ")
-                email = input("Email: ")
-                telefono = input("Teléfono: ")
-                fecha_reg = datetime.now().strftime('%Y-%m-%d')
-                insertar_visitante(nombre, apellido, email, telefono, fecha_reg)
-            
+                consulta_2_guias_museo()
+                input("\nPresione Enter para continuar...")
+                
             elif opcion == "3":
-                consulta_1_todas_obras()
+                consulta_3_productos_tienda()
+                input("\nPresione Enter para continuar...")
                 
             elif opcion == "4":
-                autor = input("Nombre del autor: ")
-                consulta_2_obras_por_autor(autor)
+                consulta_4_empleados_museo()
+                input("\nPresione Enter para continuar...")
                 
             elif opcion == "5":
-                precio_min = float(input("Precio mínimo: "))
-                precio_max = float(input("Precio máximo: "))
-                consulta_3_obras_rango_precio(precio_min, precio_max)
+                consulta_5_estadisticas_empleados()
+                input("\nPresione Enter para continuar...")
                 
             elif opcion == "6":
-                consulta_4_estadisticas_obras()
-                
+                consulta_6_entradas_vendidas_mes()
+                input("\nPresione Enter para continuar...")
+            
+            # === INSERCIÓN ===
             elif opcion == "7":
-                consulta_5_obras_por_tipo()
+                print("\n" + "="*70)
+                print("  INSERTAR NUEVO EMPLEADO")
+                print("="*70)
                 
+                nombre_completo = input("\nNombre completo: ").strip()
+                documento_identidad = input("Documento de identidad: ").strip()
+                
+                print("\nCargos disponibles:")
+                print("  1. guia")
+                print("  2. administrador")
+                print("  3. cajero")
+                print("  4. seguridad")
+                print("  5. mantenimiento")
+                print("  6. gerente")
+                print("  7. atencion_cliente")
+                
+                cargos = ['guia', 'administrador', 'cajero', 'seguridad', 
+                         'mantenimiento', 'gerente', 'atencion_cliente']
+                cargo_num = int(input("\nSeleccione cargo (1-7): "))
+                
+                if 1 <= cargo_num <= 7:
+                    cargo = cargos[cargo_num - 1]
+                else:
+                    print("✗ Cargo inválido")
+                    continue
+                
+                telefono = input("Teléfono: ").strip() or None
+                email = input("Email: ").strip() or None
+                fecha_contratacion = input("Fecha de contratación (YYYY-MM-DD) [Enter = hoy]: ").strip()
+                
+                if not fecha_contratacion:
+                    fecha_contratacion = datetime.now().strftime('%Y-%m-%d')
+                
+                horario_entrada = input("Horario de entrada (HH:MM:SS): ").strip()
+                horario_salida = input("Horario de salida (HH:MM:SS): ").strip()
+                salario = float(input("Salario: "))
+                
+                insertar_empleado(nombre_completo, documento_identidad, cargo, 
+                                telefono, email, fecha_contratacion, 
+                                horario_entrada, horario_salida, salario)
+                
+                input("\nPresione Enter para continuar...")
+            
+            # === ELIMINACIÓN ===
             elif opcion == "8":
-                dias = input("¿Cuántos días atrás? (default 30): ").strip()
-                dias = int(dias) if dias else 30
-                consulta_6_visitantes_recientes(dias)
-            
-            elif opcion == "9":
-                obra_id = int(input("ID de la obra: "))
-                nuevo_precio = float(input("Nuevo precio: "))
-                actualizar_precio_obra(obra_id, nuevo_precio)
+                print("\n" + "="*70)
+                print("  ELIMINAR EMPLEADO")
+                print("="*70)
                 
-            elif opcion == "10":
-                visitante_id = int(input("ID del visitante: "))
-                email = input("Nuevo email (Enter para omitir): ").strip() or None
-                telefono = input("Nuevo teléfono (Enter para omitir): ").strip() or None
-                actualizar_datos_visitante(visitante_id, email, telefono)
+                empleado_id = int(input("\nID del empleado a eliminar: "))
                 
-            elif opcion == "11":
-                obra_id = int(input("ID de la obra: "))
-                nuevo_tipo = input("Nuevo tipo de obra: ")
-                actualizar_tipo_obra(obra_id, nuevo_tipo)
-            
-            elif opcion == "12":
-                obra_id = int(input("ID de la obra a eliminar: "))
-                confirmar = input("¿Está seguro? (s/n): ").lower()
-                if confirmar == 's':
-                    eliminar_obra(obra_id)
+                print("\n⚠️  ADVERTENCIA: Esta acción no se puede deshacer")
+                confirmar = input("¿Está seguro de eliminar este empleado? (SI/no): ").strip().upper()
+                
+                if confirmar == "SI":
+                    eliminar_empleado(empleado_id)
                 else:
-                    print("Operación cancelada")
-                    
-            elif opcion == "13":
-                visitante_id = int(input("ID del visitante a eliminar: "))
-                confirmar = input("¿Está seguro? (s/n): ").lower()
-                if confirmar == 's':
-                    eliminar_visitante(visitante_id)
-                else:
-                    print("Operación cancelada")
+                    print("❌ Operación cancelada")
+                
+                input("\nPresione Enter para continuar...")
             
+            # === SALIR ===
             elif opcion == "0":
-                print("\n¡Gracias por usar el sistema!")
+                print("\n" + "="*70)
+                print("   ¡Gracias por usar el sistema!")
+                print("   Desarrollado por: [TU NOMBRE] y [NOMBRE COMPAÑERO]")
+                print("="*70)
                 break
                 
             else:
-                print("✗ Opción inválida")
+                print("✗ Opción inválida. Por favor seleccione una opción del menú.")
+                input("\nPresione Enter para continuar...")
                 
-        except ValueError:
-            print("✗ Error: Ingrese un valor numérico válido")
+        except ValueError as e:
+            print(f"✗ Error: Ingrese un valor válido - {e}")
+            input("\nPresione Enter para continuar...")
         except KeyboardInterrupt:
             print("\n\n¡Hasta luego!")
             break
         except Exception as e:
             print(f"✗ Error inesperado: {e}")
+            print("Por favor, intente nuevamente.")
+            input("\nPresione Enter para continuar...")
 
 if __name__ == "__main__":
     ejecutar_aplicacion()
