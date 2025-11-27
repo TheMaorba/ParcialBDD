@@ -2,8 +2,8 @@
 Aplicación CRUD para Base de Datos de Museo
 Archivo Principal con Menú Interactivo
 
-Estudiantes: [TU NOMBRE] y [NOMBRE DEL COMPAÑERO]
-Asignatura: Bases de Datos - 2025
+# Estudiante: Mateo Orozco Baldovino
+# Asignatura: Bases de Datos 1- 2025
 """
 
 from datetime import datetime

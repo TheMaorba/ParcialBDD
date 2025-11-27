@@ -10,20 +10,6 @@ def insertar_empleado(nombre_completo, documento_identidad, cargo, telefono, ema
                       fecha_contratacion, horario_entrada, horario_salida, salario):
     """
     Inserta un nuevo empleado en la base de datos
-    
-    Args:
-        nombre_completo: Nombre completo del empleado
-        documento_identidad: Documento de identidad único
-        cargo: Cargo del empleado (guia, administrador, cajero, seguridad, mantenimiento, gerente, atencion_cliente)
-        telefono: Teléfono de contacto
-        email: Correo electrónico
-        fecha_contratacion: Fecha de contratación (formato: YYYY-MM-DD)
-        horario_entrada: Hora de entrada (formato: HH:MM:SS)
-        horario_salida: Hora de salida (formato: HH:MM:SS)
-        salario: Salario del empleado
-    
-    Returns:
-        int: ID del empleado insertado, None si falla
     """
     conexion = crear_conexion()
     if not conexion:
