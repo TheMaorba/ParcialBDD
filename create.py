@@ -2,19 +2,31 @@
 Operaciones CREATE (INSERT)
 """
 
+
+""""Se importan las librerias necesarias para la conexion con la abse de datos """
+
 import mysql.connector
 from mysql.connector import Error
 from conexion import crear_conexion, cerrar_conexion
 
+
+
+"""Se crea una funcion para añadir los comandos DML a realizar sobre la base de datos """
+
 def insertar_empleado(nombre_completo, documento_identidad, cargo, telefono, email, 
                       fecha_contratacion, horario_entrada, horario_salida, salario):
-    """
-    Inserta un nuevo empleado en la base de datos
-    """
+
+
+
+
     conexion = crear_conexion()
     if not conexion:
         return None
-    
+
+
+    """
+    Se crea un cursor con la base de datos para ejecutar sentencias SQL
+    """
     try:
         cursor = conexion.cursor()
         
