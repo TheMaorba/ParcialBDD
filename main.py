@@ -2,8 +2,8 @@
 Aplicación CRUD para Base de Datos de Museo
 Archivo Principal Main
 
-# Estudiante: Mateo Orozco Baldovino
-# Asignatura: Bases de Datos 1- 2025
+Estudiante: Mateo Orozco Baldovino
+Asignatura: Bases de Datos 1- 2025
 """
 
 from datetime import datetime
@@ -23,29 +23,37 @@ from delete import eliminar_empleado
 
 
 def mostrar_menu():
-    """Muestra el menú principal"""
-    print("\n" + "=" * 70)
-    print("         SISTEMA DE GESTIÓN DE MUSEO - museo_2025")
-    print("=" * 70)
-    print("\n--- CONSULTAS (SELECT) ---")
-    print("1. Listar exhibiciones activas con ubicación y fecha")
-    print("2. Listar guías del museo con su especialidad")
+    """Muestra el menú principal del sistema de gestión del museo"""
+
+    print("\n" + "-" * 60)
+    print("SISTEMA DE GESTION DE MUSEO - museo_2025")
+    print("-" * 60)
+
+    print("\nCONSULTAS")
+    print("1. Listar exhibiciones activas con ubicacion y fecha")
+    print("2. Listar guias del museo con su especialidad")
     print("3. Listar productos disponibles en tienda")
     print("4. Listar empleados del museo con su cargo")
-    print("5. Ver estadísticas de empleados por cargo")
-    print("6. Ver estadísticas de entradas vendidas (mes actual)")
-    print("\n--- INSERCIÓN (INSERT) ---")
+    print("5. Ver estadisticas de empleados por cargo")
+    print("6. Ver estadisticas de entradas vendidas (mes actual)")
+
+    print("\nINSERCION")
     print("7. Insertar nuevo empleado")
-    print("\n--- ACTUALIZACIÓN (UPDATE) ---")
-    print("8. Actualizar teléfono/email de empleado")
+
+    print("\nACTUALIZACION")
+    print("8. Actualizar telefono o email de empleado")
     print("9. Actualizar cargo de empleado")
     print("10. Actualizar salario de empleado")
     print("11. Actualizar horario de empleado")
-    print("12. Cambiar estado de empleado (activo/inactivo)")
-    print("\n--- ELIMINACIÓN (DELETE) ---")
+    print("12. Cambiar estado de empleado (activo o inactivo)")
+
+    print("\nELIMINACION")
     print("13. Eliminar empleado")
+
     print("\n0. Salir")
-    print("=" * 70)
+    print("-" * 60)
+
+
 
 
 def ejecutar_aplicacion():

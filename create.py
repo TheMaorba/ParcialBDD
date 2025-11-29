@@ -3,7 +3,7 @@ Operaciones CREATE (INSERT)
 """
 
 
-""""Se importan las librerias necesarias para la conexion con la abse de datos """
+""""Se importan las librerias necesarias para la conexion con la base de datos """
 
 import mysql.connector
 from mysql.connector import Error

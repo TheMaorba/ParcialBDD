@@ -76,6 +76,7 @@ def consulta_1_exhibiciones_activas():
         cerrar_conexion(conexion)
 
 def consulta_2_guias_museo():
+
     """
     CONSULTA 2: Listar todos los guías del museo con su especialidad
     """
@@ -218,6 +219,7 @@ def consulta_3_productos_tienda():
         cerrar_conexion(conexion)
 
 def consulta_4_empleados_museo():
+
     """
     CONSULTA 4: Listar todos los empleados del museo con su cargo
     """
